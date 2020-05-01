@@ -5,12 +5,21 @@ import PropTypes from 'prop-types';
 
 import { fetchPosts } from '../actions/posts';
 import { Home, Navbar, Page404, Login } from './';
+import * as jwtDecode from 'jwt-decode';
 
 const Signup = () => <div>Signup</div>;
 
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const user = jwtDecode(token);
+
+      console.log('user', user);
+    }
   }
 
   render() {
